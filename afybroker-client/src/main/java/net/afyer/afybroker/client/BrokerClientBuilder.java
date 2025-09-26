@@ -3,6 +3,7 @@ package net.afyer.afybroker.client;
 import com.alipay.remoting.ConnectionEventProcessor;
 import com.alipay.remoting.ConnectionEventType;
 import com.alipay.remoting.config.BoltClientOption;
+import com.alipay.remoting.config.Configs;
 import com.alipay.remoting.rpc.RpcClient;
 import com.alipay.remoting.rpc.protocol.UserProcessor;
 import lombok.AccessLevel;
@@ -279,6 +280,22 @@ public class BrokerClientBuilder {
         return this;
     }
 
+    /**
+     * 设置序列化器索引
+     * 如果一个进程有多个 RpcClient，则同时生效
+     * 只能在实例初始化之前设置
+     *
+     * @see net.afyer.afybroker.core.Serializers
+     * @see com.alipay.remoting.serialization.SerializerManager
+     *
+     * @param index 序列化器索引
+     * @return this
+     */
+    public BrokerClientBuilder serializerIndex(int index) {
+        System.setProperty(Configs.SERIALIZER, String.valueOf(index));
+        return this;
+    }
+
     private void defaultProcessor() {
         this
                 .addConnectionEventProcessor(ConnectionEventType.CONNECT, new ConnectEventClientProcessor())
@@ -290,5 +307,7 @@ public class BrokerClientBuilder {
                 .registerUserProcessor(new RequestBrokerClientInfoClientProcessor())
                 .registerUserProcessor(new RpcInvocationClientProcessor());
     }
+
+
 
 }

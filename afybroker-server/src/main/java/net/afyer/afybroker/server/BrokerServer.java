@@ -13,7 +13,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import net.afyer.afybroker.core.Serializers;
 import net.afyer.afybroker.core.util.HessianSerializer;
+import net.afyer.afybroker.core.util.KryoSerializer;
 import net.afyer.afybroker.server.aware.BrokerServerAware;
 import net.afyer.afybroker.server.command.*;
 import net.afyer.afybroker.server.plugin.BrokerClassLoader;
@@ -186,8 +189,10 @@ public class BrokerServer {
     }
 
     static {
-        // 添加Hessian默认序列化器
-        SerializerManager.addSerializer(SerializerManager.Hessian2, new HessianSerializer(new BrokerClassLoader()));
+        // 添加默认序列化器
+        ClassLoader classLoader = new BrokerClassLoader();
+        SerializerManager.addSerializer(Serializers.Hessian2, new HessianSerializer(classLoader));
+        SerializerManager.addSerializer(Serializers.Kryo, new KryoSerializer(classLoader));
     }
 
 }

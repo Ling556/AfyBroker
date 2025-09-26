@@ -2,6 +2,7 @@ package net.afyer.afybroker.client.processor;
 
 import com.alipay.remoting.AsyncContext;
 import com.alipay.remoting.BizContext;
+import com.alipay.remoting.config.ConfigManager;
 import com.alipay.remoting.rpc.protocol.AsyncUserProcessor;
 import com.alipay.remoting.serialization.Serializer;
 import com.alipay.remoting.serialization.SerializerManager;
@@ -38,7 +39,7 @@ public class RpcInvocationClientProcessor extends AsyncUserProcessor<RpcInvocati
 
             byte[] response = null;
             if (result != null) {
-                Serializer serializer = SerializerManager.getSerializer(SerializerManager.Hessian2);
+                Serializer serializer = SerializerManager.getSerializer(ConfigManager.serializer);
                 response = serializer.serialize(result);
             }
             // 返回结果

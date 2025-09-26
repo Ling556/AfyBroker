@@ -1,5 +1,6 @@
 package net.afyer.afybroker.client.service;
 
+import com.alipay.remoting.config.ConfigManager;
 import com.alipay.remoting.rpc.exception.InvokeException;
 import com.alipay.remoting.serialization.Serializer;
 import com.alipay.remoting.serialization.SerializerManager;
@@ -69,7 +70,7 @@ public class BrokerServiceProxyFactory {
             }
 
             args = args != null ? args : new Object[0];
-            Serializer serializer = SerializerManager.getSerializer(SerializerManager.Hessian2);
+            Serializer serializer = SerializerManager.getSerializer(ConfigManager.serializer);
             byte[] parameters = serializer.serialize(args);
             // 构建调用消息
             RpcInvocationMessage message = new RpcInvocationMessage()

@@ -22,7 +22,7 @@ import com.alipay.remoting.exception.CodecException;
  * Serializer for serialize and deserialize.
  * 
  * @author jiangping
- * @version $Id: Serializer.java, v 0.1 2015-10-4 PM9:37:57 tao Exp $
+ * @version $Id: Serializers.java, v 0.1 2015-10-4 PM9:37:57 tao Exp $
  */
 public interface Serializer {
     /**

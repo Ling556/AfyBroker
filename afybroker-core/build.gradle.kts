@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     api(libs.hessian)
+    api(libs.kryo)
     compileOnlyApi(libs.annotations)
     compileOnlyApi(libs.slf4j.api)
     compileOnly(libs.guava)

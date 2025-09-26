@@ -1,5 +1,6 @@
 package net.afyer.afybroker.client.service;
 
+import com.alipay.remoting.config.ConfigManager;
 import com.alipay.remoting.rpc.exception.InvokeException;
 import com.alipay.remoting.serialization.Serializer;
 import com.alipay.remoting.serialization.SerializerManager;
@@ -57,7 +58,7 @@ public class BrokerServiceRegistry {
                     " with parameters: " + Arrays.toString(parameterTypeNames));
         }
 
-        Serializer serializer = SerializerManager.getSerializer(SerializerManager.Hessian2);
+        Serializer serializer = SerializerManager.getSerializer(ConfigManager.serializer);
         Object[] parameters = serializer.deserialize(parametersData, Object[].class.getName());
         return method.invoke(entry.getServiceImpl(), parameters);
     }

@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.val;
 import net.afyer.afybroker.client.aware.BrokerClientAware;
 import net.afyer.afybroker.client.preprocessor.BrokerInvocationContext;
 import net.afyer.afybroker.client.preprocessor.BrokerPreprocessor;
@@ -17,7 +18,9 @@ import net.afyer.afybroker.client.preprocessor.PreprocessorException;
 import net.afyer.afybroker.client.service.BrokerServiceProxyFactory;
 import net.afyer.afybroker.client.service.BrokerServiceRegistry;
 import net.afyer.afybroker.core.BrokerClientInfo;
+import net.afyer.afybroker.core.Serializers;
 import net.afyer.afybroker.core.util.HessianSerializer;
+import net.afyer.afybroker.core.util.KryoSerializer;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -147,6 +150,9 @@ public class BrokerClient {
     }
 
     static {
-        SerializerManager.addSerializer(SerializerManager.Hessian2, new HessianSerializer(BrokerClient.class.getClassLoader()));
+        // 添加默认序列化器
+        ClassLoader classLoader = BrokerClient.class.getClassLoader();
+        SerializerManager.addSerializer(Serializers.Hessian2, new HessianSerializer(classLoader));
+        SerializerManager.addSerializer(Serializers.Kryo, new KryoSerializer(classLoader));
     }
 }
